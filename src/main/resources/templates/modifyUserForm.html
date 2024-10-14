@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org", xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title th:if="${valor == 'Insert'}">[[#{formI.title}]]</title>
+        <title th:if="${valor == 'Modify'}">[[#{formU.title}]]</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h2>[[#{form.title1}]]</h2>
+        <a th:href="@{/}"><input type="button" th:value="#{form.button.return}"/></a>
+        <form th:action="@{/insert}" method="POST" th:object="${newUser}">
+            
+            <label for="username">[[#{form.labelUsername}]]</label><br/>
+                <input type="text" name="username" th:field="*{username}" />
+                <span th:if="${#fields.hasErrors('username')}" th:text="#{error.username}"></span>
+            <br/><br/>
+            
+            <label for="username">[[#{form.labelEmail}]]</label><br/>
+                <input type="text" name="email" th:field="*{email}" />
+                <span th:if="${#fields.hasErrors('email')}" th:text="#{error.email}"></span>
+            <br/><br/>
+            
+            <label for="username">[[#{form.labelPassword}]]</label><br/>
+                <input type="password" name="password" th:field="*{password}" />
+                <span th:if="${#fields.hasErrors('password')}" th:text="#{error.password}"></span>
+            <br/><br/>
+            
+            <input type="hidden" name="id" th:field="*{id}"/>
+            
+            <input th:if="${valor == 'Insert'}" type="submit" th:value="#{formI.button.submit}" />
+            <input th:if="${valor == 'Modify'}" type="submit" th:value="#{formU.button.submit}" />
+        </form>
+    </body>
+</html>

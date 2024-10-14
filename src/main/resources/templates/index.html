@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>[[#{index.title}]]</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/styles/general_testing.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/styles/navbar.css}"/>
+    </head>
+    <body>
+        <header th:replace="pieces/pieces :: header"/>
+        <h1 th:text="#{index.title1}">Hello User</h1>
+        <p>[[#{index.text1}]]</p> <!-- <span th:text=${modelVariable}></span> -->
+        <div th:if="${users != null and !users.empty}">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>[[#{table.username}]]</th>
+                        <th>[[#{table.email}]]</th>
+                        <th>[[#{table.password}]]</th>
+                        <th>Rol</th>
+                        <th>[[#{table.actions}]]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.id}"></td>
+                        <td th:text="${user.username}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td th:text="${user.password}"></td>
+                        <td th:text="${user.rol.rolName}"></td>
+                        <td>
+                            <a th:href="@{/modify/} + ${user.id}"><input type="button" th:value="#{table.user.modify}"></a>
+                            <a th:href="@{/delete/} + ${user.id}"><input type="button" th:value="#{table.user.delete}" 
+                                                                         onclick="if (!confirm('You will delete this Owner. Are you SURE?'))
+                                                                                     return false;"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${users == null or users.empty}">
+            <span>[[#{table.empty}]]</span>
+        </div>
+    </body>
+    <script>
+        const firstLink = document.querySelector('nav a:nth-child(1)');
+        const secondLink = document.querySelector('nav a:nth-child(2)');
+
+        secondLink.addEventListener('mouseover', () => {
+            firstLink.style.color = 'white';
+        });
+
+        secondLink.addEventListener('mouseout', () => {
+            firstLink.style.color = 'rgba(95, 17, 232, 1)';
+        });
+    </script>
+</html>

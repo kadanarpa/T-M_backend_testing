@@ -1,0 +1,17 @@
+
+<html xmlns:th="http://www.thymeleaf.org", xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <header th:fragment="header">
+            <nav>
+                <a th:href="@{/}">[[#{user.list}]]</a>
+                <a th:href="@{/append}">[[#{user.insert}]]</a>
+                <div class="animation start-home"></div>
+            </nav>
+        </header>
+    </body>
+</html>
