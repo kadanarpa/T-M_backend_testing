@@ -27,7 +27,7 @@ public class User implements Serializable{
     @Column(name = "usr_email")
     private String email;
     
-    @Size(min = 8, max = 100)
+    @Size(min = 4, max = 100)
     @Column(name = "usr_password")
     private String password;
     
