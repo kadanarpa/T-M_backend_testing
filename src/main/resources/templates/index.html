@@ -12,7 +12,7 @@
         <h1 th:text="#{index.title1}">Hello User</h1>
         <p>[[#{index.text1}]]</p> <!-- <span th:text=${modelVariable}></span> -->
         <a th:href="@{/logout}"><input type="button" value="Logout"/></a>
-        <div th:if="${users != null and !users.empty}">
+        <div th:if="${owners != null and !owners.empty}">
             <table>
                 <thead>
                     <tr>
@@ -25,12 +25,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="user : ${users}">
-                        <td th:text="${user.id}"></td>
-                        <td th:text="${user.username}"></td>
-                        <td th:text="${user.email}"></td>
-                        <td th:text="${user.password}"></td>
-                        <td th:text="${user.rol.rolName}"></td>
+                    <tr th:each="owner : ${owners}">
+                        <td th:text="${owner.id}"></td>
+                        <td th:text="${owner.user.username}"></td>
+                        <td th:text="${owner.user.email}"></td>
+                        <td th:text="${owner.user.password}"></td>
+                        <td th:text="${owner.user.rol.rolName}"></td>
                         <td>
                             <a th:href="@{/modify/} + ${user.id}"><input type="button" th:value="#{table.user.modify}"></a>
                             <a th:href="@{/delete/} + ${user.id}"><input type="button" th:value="#{table.user.delete}" 
@@ -41,7 +41,7 @@
                 </tbody>
             </table>
         </div>
-        <div th:if="${users == null or users.empty}">
+        <div th:if="${owners == null or owners.empty}">
             <span>[[#{table.empty}]]</span>
         </div>
         <footer th:replace="pieces/pieces :: i18n"/>

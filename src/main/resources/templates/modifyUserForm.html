@@ -12,17 +12,33 @@
         <form th:action="@{/insert}" method="POST" th:object="${newUser}">
             
             <label for="username">[[#{form.labelUsername}]]</label><br/>
-                <input type="text" name="username" th:field="*{username}" />
+                <input type="text" name="username" th:field="*{user.username}" />
                 <span th:if="${#fields.hasErrors('username')}" th:text="#{error.username}"></span>
             <br/><br/>
             
-            <label for="username">[[#{form.labelEmail}]]</label><br/>
-                <input type="text" name="email" th:field="*{email}" />
+            <label for="firstName">First Name</label><br/>
+                <input type="text" name="firstName" th:field="*{firstName}" />
+            <br/><br/>
+            
+            <label for="lastName">Last Name</label><br/>
+                <input type="text" name="lastName" th:field="*{lastName}" />
+            <br/><br/>
+            
+            <label for="phone">Phone Number</label><br/>
+                <input type="text" name="phone" th:field="*{phone}" />
+            <br/><br/>
+            
+            <label for="firstName">First Name</label><br/>
+                <input type="text" name="firstName" th:field="*{firstName}" />
+            <br/><br/>
+            
+            <label for="email">[[#{form.labelEmail}]]</label><br/>
+                <input type="text" name="email" th:field="*{user.email}" />
                 <span th:if="${#fields.hasErrors('email')}" th:text="#{error.email}"></span>
             <br/><br/>
             
-            <label for="username">[[#{form.labelPassword}]]</label><br/>
-                <input type="password" name="password" th:field="*{password}" />
+            <label for="password">[[#{form.labelPassword}]]</label><br/>
+                <input type="password" name="password" th:field="*{user.password}" />
                 <span th:if="${#fields.hasErrors('password')}" th:text="#{error.password}"></span>
             <br/><br/>
             

@@ -1,17 +1,17 @@
 
 package co.edu.usco.TM.service.interfaces;
 
-import co.edu.usco.TM.persistence.entity.User;
+import co.edu.usco.TM.persistence.entity.Owner;
 import java.util.List;
 
 public interface IntOwnerService {
     
-    public List<User> listOwners();
+    public List<Owner> listOwners();
     
-    public void save(User user);
+    public void save(Owner owner);
     
-    public void delete(User user);
+    public void delete(Owner owner);
     
-    public User getUser(User user);
+    public Owner getOwner(Owner owner);
     
 }

@@ -1,5 +1,6 @@
 package co.edu.usco.TM.controller;
 
+import co.edu.usco.TM.persistence.entity.Owner;
 import co.edu.usco.TM.persistence.entity.User;
 import co.edu.usco.TM.service.OwnerService;
 import jakarta.validation.Valid;
@@ -16,55 +17,59 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AdminController {
 
     @Autowired
-    private OwnerService usrService;
+    private OwnerService ownService;
 
     @GetMapping("/")
     public String showIndex(Model model) {
 
-        List<User> users = usrService.listUsers();
+        List<Owner> owners = ownService.listOwners();
 
-        model.addAttribute("users", users);
+        model.addAttribute("owners", owners);
         return "index";
     }
 
     @GetMapping("/append")
-    public String appendUser(Model model) {
-        User newUser = new User();
-        model.addAttribute("newUser", newUser);
+    public String appendOwner(Model model) {
+        
+        Owner newOwner = new Owner();
+        newOwner.setUser(new User());
+        
+        model.addAttribute("newOwner", newOwner);
         model.addAttribute("valor", "Insert");
+        
         return "modifyUserForm";
     }
 
     @PostMapping("/insert")
-    public String insertUser(@Valid @ModelAttribute("newUser") User newUser, Errors error, Model model) {
+    public String insertOwner(@Valid @ModelAttribute("newUser") Owner newOwner, Errors error, Model model) {
 
         if (error.hasErrors()) {
-            if (newUser.getId() == null) {
+            if (newOwner.getId() == null) {
                 model.addAttribute("valor", "Insert");
             } else {
                 model.addAttribute("valor", "Modify");
             }
             return "modifyUserForm";
         } else {
-            usrService.save(newUser);
+            ownService.save(newOwner);
             return "redirect:/";
         }
     }
 
     @GetMapping("/modify/{id}")
-    public String modifyUser(User user, Model model) {
+    public String modifyOwner(Owner owner, Model model) {
 
-        User modUser = usrService.getUser(user);
+        Owner modOwner = ownService.getOwner(owner);
 
-        model.addAttribute("newUser", modUser);
+        model.addAttribute("newOwner", modOwner);
         model.addAttribute("valor", "Modify");
         return "modifyUserForm";
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteUser(User delUser) {
+    public String deleteOwner(Owner delOwner) {
 
-        usrService.delete(delUser);
+        ownService.delete(delOwner);
 
         return "redirect:/";
     }
