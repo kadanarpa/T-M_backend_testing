@@ -11,6 +11,7 @@
         <header th:replace="pieces/pieces :: header"/>
         <h1 th:text="#{index.title1}">Hello User</h1>
         <p>[[#{index.text1}]]</p> <!-- <span th:text=${modelVariable}></span> -->
+        <a th:href="@{/logout}"><input type="button" value="Logout"/></a>
         <div th:if="${users != null and !users.empty}">
             <table>
                 <thead>
