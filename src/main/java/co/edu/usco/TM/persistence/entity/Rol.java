@@ -1,5 +1,5 @@
 
-package co.edu.usco.TM.entity;
+package co.edu.usco.TM.persistence.entity;
 
 import jakarta.persistence.*;
 import java.io.Serializable;

@@ -1,7 +1,7 @@
-package co.edu.usco.TM.web;
+package co.edu.usco.TM.controller;
 
-import co.edu.usco.TM.entity.User;
-import co.edu.usco.TM.service.UserService;
+import co.edu.usco.TM.persistence.entity.User;
+import co.edu.usco.TM.service.OwnerService;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class ControllerRest {
+public class AdminController {
 
     @Autowired
-    private UserService usrService;
+    private OwnerService usrService;
 
     @GetMapping("/")
     public String showIndex(Model model) {

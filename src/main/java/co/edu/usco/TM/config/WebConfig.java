@@ -1,4 +1,4 @@
-package co.edu.usco.TM.web;
+package co.edu.usco.TM.config;
 
 import java.util.Locale;
 import org.springframework.context.annotation.Bean;
