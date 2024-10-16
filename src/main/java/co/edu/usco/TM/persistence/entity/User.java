@@ -1,11 +1,13 @@
 
-package co.edu.usco.TM.entity;
+package co.edu.usco.TM.persistence.entity;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
 import lombok.Data;
 import jakarta.validation.constraints.*;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Data
 @Entity
 @Table(name="users")
@@ -19,6 +21,7 @@ public class User implements Serializable{
     private Long id;
     
     @Size(min = 3, max = 15)
+    @NotEmpty
     private String username;
     
     @Email
@@ -28,6 +31,7 @@ public class User implements Serializable{
     private String email;
     
     @Size(min = 4, max = 100)
+    @NotEmpty
     @Column(name = "usr_password")
     private String password;
     
@@ -35,8 +39,5 @@ public class User implements Serializable{
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name="usr_rol_id")
     private Rol rol;
-
-    public User() {
-    }
     
 }
