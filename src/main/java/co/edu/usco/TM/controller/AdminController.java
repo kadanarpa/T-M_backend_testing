@@ -12,36 +12,38 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+@RequestMapping("/admin/owner")
 @Controller
 public class AdminController {
 
     @Autowired
     private OwnerService ownService;
 
-    @GetMapping("/")
+    @GetMapping
     public String showIndex(Model model) {
 
         List<Owner> owners = ownService.listOwners();
 
         model.addAttribute("owners", owners);
-        return "index";
+        return "ownersList";
     }
 
     @GetMapping("/append")
     public String appendOwner(Model model) {
-        
+
         Owner newOwner = new Owner();
         newOwner.setUser(new User());
-        
+
         model.addAttribute("newOwner", newOwner);
         model.addAttribute("valor", "Insert");
-        
+
         return "modifyUserForm";
     }
 
     @PostMapping("/insert")
-    public String insertOwner(@Valid @ModelAttribute("newUser") Owner newOwner, Errors error, Model model) {
+    public String insertOwner(@Valid @ModelAttribute("newOwner") Owner newOwner, Errors error, Model model) {
 
         if (error.hasErrors()) {
             if (newOwner.getId() == null) {
@@ -52,7 +54,8 @@ public class AdminController {
             return "modifyUserForm";
         } else {
             ownService.save(newOwner);
-            return "redirect:/";
+
+            return "redirect:/admin/owner";
         }
     }
 
@@ -67,10 +70,11 @@ public class AdminController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteOwner(Owner delOwner) {
+    public String deleteOwner(Owner owner) {
 
+        Owner delOwner = ownService.getOwner(owner);
         ownService.delete(delOwner);
 
-        return "redirect:/";
+        return "redirect:/admin/owner";
     }
 }

@@ -21,9 +21,10 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests(request
-                -> request.requestMatchers("/").permitAll()
-                        .requestMatchers("/append", "/delete/{id}").hasRole("ADMIN")
-                        .requestMatchers("/modify/{id}").authenticated()
+                -> request.requestMatchers("/admin/owner").permitAll()
+                        .requestMatchers("/admin/owner/modify/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .anyRequest().authenticated()
         )
                 .formLogin(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable());

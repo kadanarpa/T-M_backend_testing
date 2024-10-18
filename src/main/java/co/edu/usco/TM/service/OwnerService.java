@@ -21,7 +21,7 @@ public class OwnerService implements IntOwnerService {
 
     @Autowired
     private OwnerRepo ownRepo;
-    
+
     @Override
     @Transactional(readOnly = true)
     public List<Owner> listOwners() {
@@ -31,8 +31,15 @@ public class OwnerService implements IntOwnerService {
     @Override
     @Transactional
     public void save(Owner owner) {
-        
-        owner.getUser().setRol(rolRepo.findByRolName("ROLE_USER"));
+
+        // Check if is Insert or Update Owner
+        if (owner.getId() == null) {
+            // Insert Owner
+            owner.getUser().setRol(rolRepo.findByRolName("ROLE_USER"));
+            usrRepo.save(owner.getUser());
+            owner.setId(owner.getUser().getId());
+        } 
+
         ownRepo.save(owner);
     }
 
@@ -40,6 +47,7 @@ public class OwnerService implements IntOwnerService {
     @Transactional
     public void delete(Owner owner) {
         ownRepo.delete(owner);
+        usrRepo.deleteById(owner.getId());
     }
 
     @Override

@@ -22,7 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .build();
         slr.setDefaultLocale(spanishLocale);
          */
-        slr.setDefaultLocale(new Locale("es"));
+        slr.setDefaultLocale(new Locale("en"));
         return slr;
     }
 
