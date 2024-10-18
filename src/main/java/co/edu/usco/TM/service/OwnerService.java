@@ -1,6 +1,6 @@
 package co.edu.usco.TM.service;
 
-import co.edu.usco.TM.persistence.entity.User;
+import co.edu.usco.TM.persistence.entity.Owner;
 import co.edu.usco.TM.persistence.repository.OwnerRepo;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,35 +21,44 @@ public class OwnerService implements IntOwnerService {
 
     @Autowired
     private OwnerRepo ownRepo;
-    
+
     @Override
     @Transactional(readOnly = true)
-    public List<User> listOwners() {
-        return (List<User>) usrRepo.findAll();
+    public List<Owner> listOwners() {
+        return (List<Owner>) ownRepo.findAll();
     }
 
     @Override
     @Transactional
-    public void save(User user) {
-        user.setRol(rolRepo.findByRolName("ROLE_USER"));
-        usrRepo.save(user);
+    public void save(Owner owner) {
+
+        // Check if is Insert or Update Owner
+        if (owner.getId() == null) {
+            // Insert Owner
+            owner.getUser().setRol(rolRepo.findByRolName("ROLE_USER"));
+            usrRepo.save(owner.getUser());
+            owner.setId(owner.getUser().getId());
+        } 
+
+        ownRepo.save(owner);
     }
 
     @Override
     @Transactional
-    public void delete(User user) {
-        usrRepo.delete(user);
+    public void delete(Owner owner) {
+        ownRepo.delete(owner);
+        usrRepo.deleteById(owner.getId());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public User getUser(User user) {
-        return usrRepo.findById(user.getId()).orElse(null);
+    public Owner getOwner(Owner owner) {
+        return ownRepo.findById(owner.getId()).orElse(null);
     }
 
     @Transactional(readOnly = true)
-    public List<User> getUserByEmail(String email) {
-        return usrRepo.findByEmail(email);
+    public List<Owner> getOwnerByEmail(String email) {
+        return null;
     }
 
 }

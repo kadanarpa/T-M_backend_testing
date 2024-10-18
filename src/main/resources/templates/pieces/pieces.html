@@ -8,16 +8,16 @@
     <body>
         <header th:fragment="header">
             <nav>
-                <a th:href="@{/}">[[#{user.list}]]</a>
-                <a th:href="@{/append}">[[#{user.insert}]]</a>
+                <a th:href="@{/admin/owner}">[[#{user.list}]]</a>
+                <a th:href="@{/admin/owner/append}">[[#{user.insert}]]</a>
                 <div class="animation start-home"></div>
             </nav>
         </header>
         <footer th:fragment="i18n">
             <div>
                 <br/>
-                <a th:href="@{/(lang=es)}" >ES</a> - 
-                <a th:href="@{/(lang=en)}" >EN</a>
+                <a th:href="@{/admin/owner(lang=es)}" >ES</a> - 
+                <a th:href="@{/admin/owner(lang=en)}" >EN</a>
                 <span> </span>
             </div>
         </footer>
